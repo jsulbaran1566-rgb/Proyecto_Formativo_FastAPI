@@ -4,25 +4,25 @@ app = FastAPI()
 
 # Listas con datos
 usuarios = [
-    {"id": 0, "nombre": "Juan", "rol": "Productor"},
-    {"id": 1, "nombre": "Ana", "rol": "Comprador"}
+    {"id": 1, "nombre": "Valentina", "rol": "Productor"},
+    {"id": 2, "nombre": "Danna", "rol": "Comprador"}
 ]
 
 lotes = [
-    {"id": 0, "producto": "Papa", "cantidad": 500, "categoria": "Tubérculos"},
-    {"id": 1, "producto": "Tomate", "cantidad": 200, "categoria": "Verduras"}
+    {"id": 1, "producto": "Papa", "cantidad": 500, "categoria": "Tubérculos"},
+    {"id": 2, "producto": "Tomate", "cantidad": 200, "categoria": "Verduras"}
 ]
 
 compradores = [
-    {"id": 0, "nombre": "Carlos", "ciudad": "Bogotá"},
-    {"id": 1, "nombre": "Maria", "ciudad": "Medellín"}
+    {"id": 1, "nombre": "Jesus", "ciudad": "Bogotá"},
+    {"id": 2, "nombre": "Sofia", "ciudad": "Medellín"}
 ]
 
 reservas = [
-    {"id": 0, "comprador": "Carlos", "producto": "Papa"}
+    {"id": 1, "comprador": "Jesus", "producto": "Papa"}
 ]
 
-categorias = ["Tubérculos", "Frutas", "Verduras"]
+categorias = ["Tubérculos", "Frutas", "Verduras", "Hortalizas"]
 
 # HISTORIALES Y REGISTROS
 historial_seguimiento = []
@@ -99,7 +99,7 @@ def agregar_categoria(nombre: str):
     return "Categoría agregada"
 
 
-# 🔥 RESERVAS CON MENSAJE FIJO
+# RESERVAS
 @app.post("/reservas")
 def crear_reserva(id: int, comprador: str, producto: str, cantidad: int):
 
