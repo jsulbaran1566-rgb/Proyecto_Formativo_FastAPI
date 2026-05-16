@@ -8,6 +8,7 @@ class Usuario(BaseModel):
     nombre: str = Field(min_length=3)
     rol: str = Field(min_length=3)
 
+
 # ================= LOTES =================
   
 class Lote(BaseModel):
