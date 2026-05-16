@@ -10,7 +10,7 @@ class Usuario(BaseModel):
     rol: str = Field(min_length=3)
 
 # ================= LOTES =================
- 
+  
 class Lote(BaseModel):
     id: int = Field(gt=0)
     producto: str = Field(min_length=2)
