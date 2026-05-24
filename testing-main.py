@@ -2,7 +2,15 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+from fastapi.middleware.cors import CORSMiddleware
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=False,
+)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -14,10 +22,20 @@ class ErrorUsuarioNoExiste(Exception):
     def __init__(self, id):
         self.mensaje = f"No existe un usuario con el id {id}"
 
+class ErrorStockInsuficiente(Exception):
+    def __init__(self, producto, pedido, disponible):
+        self.mensaje = f"No hay suficiente stock de '{producto}'. Pedido: {pedido}, Disponible: {disponible}"
+
 @app.exception_handler(ErrorUsuarioNoExiste)
 async def manejar_usuario_no_existe(request, error):
     from fastapi.responses import JSONResponse
     return JSONResponse(status_code=404, content={"error": error.mensaje})
+    
+@app.exception_handler(ErrorStockInsuficiente)
+async def manejar_stock_insuficiente(request, error):
+    from fastapi.responses import JSONResponse
+    return JSONResponse(status_code=400, content={"error": error.mensaje})
+
 
 # ============================================================
 # DATOS INICIALES
