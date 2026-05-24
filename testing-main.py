@@ -1,23 +1,7 @@
 from fastapi import FastAPI, HTTPException, Query
-from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-class ErrorUsuarioNoExiste(Exception):
-    def __init__(self, id):
-        self.mensaje = f"No existe un usuario con el id {id}"
-
-@app.exception_handler(ErrorUsuarioNoExiste)
-async def manejar_usuario_no_existe(request, error):
-    from fastapi.responses import JSONResponse
-    return JSONResponse(status_code=404, content={"error": error.mensaje})
 # ============================================================
 # DATOS INICIALES
 # ============================================================
