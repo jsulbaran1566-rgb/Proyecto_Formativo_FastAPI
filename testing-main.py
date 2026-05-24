@@ -36,7 +36,7 @@ async def manejar_stock_insuficiente(request, error):
     from fastapi.responses import JSONResponse
     return JSONResponse(status_code=400, content={"error": error.mensaje})
 
-
+ 
 # ============================================================
 # DATOS INICIALES
 # ============================================================
