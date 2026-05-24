@@ -2,6 +2,7 @@ from fastapi import FastAPI
      
 app = FastAPI()
 
+
 # Listas con datos
 usuarios = [
     {"id": 1, "nombre": "Valentina", "rol": "Productor"},
