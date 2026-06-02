@@ -3,7 +3,7 @@
 -- Versión: 1.0
 -- Fecha: 2026-05-30
 -- ============================================================
- 
+  
 -- Crear y seleccionar la base de datos
 CREATE DATABASE IF NOT EXISTS agro_mercado
     CHARACTER SET utf8mb4
