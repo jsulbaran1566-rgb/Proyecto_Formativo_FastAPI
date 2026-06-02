@@ -1,59 +1,101 @@
-from pydantic import BaseModel, Field
-from typing import List
+from sqlalchemy import Column, Integer, String, ForeignKey
+from database import Base
+
 
 # ================= USUARIOS =================
 
-class Usuario(BaseModel):
-    id: int = Field(gt=0)
-    nombre: str = Field(min_length=3)
-    rol: str = Field(min_length=3)
+class Usuario(Base):
+    __tablename__ = "usuarios"
 
+    id     = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String(150), nullable=False)
+    rol    = Column(String(50),  nullable=False)
 
-# ================= LOTES =================
-  
-class Lote(BaseModel):
-    id: int = Field(gt=0)
-    producto: str = Field(min_length=2)
-    cantidad: int = Field(gt=0)
-    categoria: str = Field(min_length=3)
-
-# ================= COMPRADORES =================
-
-class Comprador(BaseModel):
-    id: int = Field(gt=0)
-    nombre: str = Field(min_length=3)
-    ciudad: str = Field(min_length=3)
-
-# ================= RESERVAS =================
-
-class Reserva(BaseModel):
-    id: int = Field(gt=0)
-    comprador: str = Field(min_length=3)
-    producto: str = Field(min_length=2)
-    cantidad: int = Field(gt=0)
 
 # ================= CATEGORIAS =================
 
-class Categoria(BaseModel):
-    nombre: str = Field(min_length=3)
+class Categoria(Base):
+    __tablename__ = "categorias"
 
-# ================= HISTORIAL =================
+    nombre = Column(String(100), primary_key=True, index=True)
 
-class HistorialSeguimiento(BaseModel):
-    accion: str = Field(min_length=3)
-    lote: int
-    producto: str = Field(min_length=2)
 
-# ================= COMPRAS Y VENTAS =================
+# ================= LOTES =================
 
-class Compra(BaseModel):
-    id: int = Field(gt=0)
-    comprador: str = Field(min_length=3)
-    producto: str = Field(min_length=2)
-    cantidad: int = Field(gt=0)
+class Lote(Base):
+    __tablename__ = "lotes"
 
-class Venta(BaseModel):
-    id: int = Field(gt=0)
-    comprador: str = Field(min_length=3)
-    producto: str = Field(min_length=2)
-    cantidad: int = Field(gt=0)
+    id        = Column(Integer,     primary_key=True, index=True)
+    producto  = Column(String(150), nullable=False)
+    cantidad  = Column(Integer,     nullable=False)
+    categoria = Column(String(100), ForeignKey("categorias.nombre"), nullable=False)
+
+
+# ================= COMPRADORES =================
+
+class Comprador(Base):
+    __tablename__ = "compradores"
+
+    id     = Column(Integer,     primary_key=True, index=True)
+    nombre = Column(String(150), nullable=False)
+    ciudad = Column(String(100), nullable=False)
+
+
+# ================= RESERVAS =================
+
+class Reserva(Base):
+    __tablename__ = "reservas"
+
+    id        = Column(Integer,    primary_key=True, index=True)
+    comprador = Column(String(150), nullable=False)
+    producto  = Column(String(150), nullable=False)
+    cantidad  = Column(Integer,     nullable=False)
+    fecha     = Column(String(20),  nullable=False, default="09/05/2026")
+
+
+# ================= HISTORIAL SEGUIMIENTO =================
+
+class HistorialSeguimiento(Base):
+    __tablename__ = "historial_seguimiento"
+
+    id       = Column(Integer,     primary_key=True, index=True, autoincrement=True)
+    accion   = Column(String(200), nullable=False)
+    lote     = Column(Integer,     ForeignKey("lotes.id"), nullable=True)
+    producto = Column(String(150), nullable=False)
+    fecha    = Column(String(20),  nullable=True)
+
+
+# ================= COMPRAS =================
+
+class Compra(Base):
+    __tablename__ = "compras"
+
+    id        = Column(Integer,     primary_key=True, index=True)
+    comprador = Column(String(150), nullable=False)
+    producto  = Column(String(150), nullable=False)
+    cantidad  = Column(Integer,     nullable=False)
+    fecha     = Column(String(20),  nullable=True)
+
+
+# ================= VENTAS =================
+
+class Venta(Base):
+    __tablename__ = "ventas"
+
+    id        = Column(Integer,     primary_key=True, index=True)
+    comprador = Column(String(150), nullable=False)
+    producto  = Column(String(150), nullable=False)
+    cantidad  = Column(Integer,     nullable=False)
+    fecha     = Column(String(20),  nullable=True)
+
+
+# ================= HISTORIAL RESERVAS =================
+
+class HistorialReserva(Base):
+    __tablename__ = "historial_reservas"
+
+    id        = Column(Integer,     primary_key=True, index=True, autoincrement=True)
+    comprador = Column(String(150), nullable=False)
+    producto  = Column(String(150), nullable=False)
+    cantidad  = Column(Integer,     nullable=False)
+    fecha     = Column(String(20),  nullable=False, default="09/05/2026")
