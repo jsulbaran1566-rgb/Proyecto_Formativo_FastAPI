@@ -8,7 +8,7 @@
 CREATE DATABASE IF NOT EXISTS agro_mercado
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_spanish_ci;
-
+ 
 USE agro_mercado;
 
 -- ============================================================
