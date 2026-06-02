@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from database import get_db, engine, Base
 import models
 
+
 # Crea todas las tablas al arrancar
 Base.metadata.create_all(bind=engine)
 
