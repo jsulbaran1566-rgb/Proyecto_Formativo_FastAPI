@@ -19,7 +19,7 @@ class Categoria(Base):
 
     nombre = Column(String(100), primary_key=True, index=True)
 
- 
+  
 # ================= LOTES =================
 
 class Lote(Base):
