@@ -1,17 +1,17 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root@localhost/agro_mercado"
+# Cambia estos valores por los de tu pgAdmin:
+# postgresql://usuario:contraseña@host:puerto/nombre_base_datos
+DATABASE_URL = "postgresql://postgres:tu_contraseña@localhost:5432/agro_mercado"
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_engine(DATABASE_URL)
 
-SessionLocal = sessionmaker(
-    autocommit=False,
-    autoflush=False,
-    bind=engine
-)
-  
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
 Base = declarative_base()
+
 
 def get_db():
     db = SessionLocal()
